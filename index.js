@@ -1,6 +1,11 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const app = express()
+const cors = require('cors')
+
+app.use(cors())
+app.use(express.json())
+// const jsonParser = bodyParser.json()
 
 let notes = [
   {
@@ -23,8 +28,6 @@ let notes = [
     important: true
   }
 ]
-
-const jsonParser = bodyParser.json()
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
@@ -50,7 +53,7 @@ app.delete('/api/notes/:id', (req, res) => {
   res.status(204).end()
 })
 
-app.post('/api/notes', jsonParser, (req, res) => {
+app.post('/api/notes', (req, res) => {
   const note = req.body
 
   console.log(req.body)
